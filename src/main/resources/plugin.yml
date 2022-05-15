@@ -1,0 +1,7 @@
+name: LobbySystem
+version: '${project.version}'
+main: de.murmelmeister.lobbysystem.LobbySystem
+api-version: 1.18
+authors: [ Murmelmeister ]
+description: Is a LobbySystem plugin.
+website: https://www.youtube.com/Murmelmeister
