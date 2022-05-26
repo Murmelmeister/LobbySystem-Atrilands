@@ -5,3 +5,22 @@ api-version: 1.18
 authors: [ Murmelmeister ]
 description: Is a LobbySystem plugin.
 website: https://www.youtube.com/Murmelmeister
+
+commands:
+  build:
+    usage: /<command> [player]
+    description: Setze dich in den Buildmode.
+  deathheight:
+    usage: /<command>
+    description: Zeigt dir die todes Höhe an.
+  lobbysystem:
+    usage: /<command> [reload]
+  setdeathheight:
+    usage: /<command>
+    description: Setzt die todes Höhe.
+  setspawn:
+    usage: /<command>
+    description: Setzt den Spawn.
+  spawn:
+    usage: /<command> [player]
+    description: Teleportiert dich zum Spawn.
