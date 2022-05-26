@@ -1,8 +1,10 @@
 package de.murmelmeister.lobbysystem.listeners;
 
 import de.murmelmeister.lobbysystem.LobbySystem;
+import de.murmelmeister.lobbysystem.config.MessageConfig;
 import de.murmelmeister.lobbysystem.utils.ArrayListUtil;
 import de.murmelmeister.lobbysystem.utils.HexColor;
+import de.murmelmeister.lobbysystem.utils.LobbyItems;
 import de.murmelmeister.lobbysystem.utils.LocationUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
@@ -13,6 +15,8 @@ public class Listeners implements Listener {
 
     protected ArrayListUtil arrayListUtil = this.instance.getArrayListUtil();
     protected LocationUtil locationUtil = this.instance.getLocationUtil();
+    protected LobbyItems lobbyItems = this.instance.getLobbyItems();
+    protected MessageConfig messageConfig = this.instance.getMessageConfig();
 
     public void registerListeners() {
         setListener(new ListenerOthers());

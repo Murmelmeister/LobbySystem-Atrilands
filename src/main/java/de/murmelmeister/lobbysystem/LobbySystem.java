@@ -4,7 +4,10 @@ import de.murmelmeister.lobbysystem.commands.CommandManager;
 import de.murmelmeister.lobbysystem.config.MessageConfig;
 import de.murmelmeister.lobbysystem.listeners.Listeners;
 import de.murmelmeister.lobbysystem.utils.ArrayListUtil;
+import de.murmelmeister.lobbysystem.utils.LobbyItems;
 import de.murmelmeister.lobbysystem.utils.LocationUtil;
+
+import java.util.Objects;
 
 public final class LobbySystem extends Main {
 
@@ -15,6 +18,7 @@ public final class LobbySystem extends Main {
     private LocationUtil locationUtil;
     private CommandManager commandManager;
     private MessageConfig messageConfig;
+    private LobbyItems lobbyItems;
 
     @Override
     public void onDisable() {
@@ -24,6 +28,7 @@ public final class LobbySystem extends Main {
     @Override
     public void onEnable() {
         init();
+        getLobbyItems().rainbowLoop().runTaskTimer(this, 1, 1);
         this.handleEnableMessage();
     }
 
@@ -37,6 +42,7 @@ public final class LobbySystem extends Main {
         setArrayListUtil(new ArrayListUtil());
         setLocationUtil(new LocationUtil());
         setMessageConfig(new MessageConfig());
+        setLobbyItems(new LobbyItems());
         setListeners(new Listeners());
         setCommandManager(new CommandManager());
         getListeners().registerListeners();
@@ -89,5 +95,13 @@ public final class LobbySystem extends Main {
 
     public void setMessageConfig(MessageConfig messageConfig) {
         this.messageConfig = messageConfig;
+    }
+
+    public LobbyItems getLobbyItems() {
+        return lobbyItems;
+    }
+
+    public void setLobbyItems(LobbyItems lobbyItems) {
+        this.lobbyItems = lobbyItems;
     }
 }

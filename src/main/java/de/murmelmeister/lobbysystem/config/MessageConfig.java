@@ -64,6 +64,7 @@ public class MessageConfig {
         getConfig().set("Permission.Spawn.Other", "lobbysystem.command.spawn.other");
         getConfig().set("Permission.LobbySystem.Use", "lobbysystem.command.lobbysystem.use");
         getConfig().set("Permission.LobbySystem.Reload", "lobbysystem.command.lobbysystem.reload");
+        getConfig().set("Permission.LobbyItem.Boots", "lobbysystem.lobbyitem.boots");
         getConfig().set("Message.NoPermission", HexColor.format("#ff0000Dazu hast du keine Rechte."));
         getConfig().set("Message.NoConsole", HexColor.format("#ff0000Dieser Command funktioniert nicht in der Console."));
         getConfig().set("Message.PlayerIsNotOnline", HexColor.format("#999999Der Spieler #ffb500[PLAYER] #999999ist nicht auf diesem Server #ff0000online#999999."));
@@ -93,6 +94,7 @@ public class MessageConfig {
         getConfig().getString("Permission.Spawn.Other");
         getConfig().getString("Permission.LobbySystem.Use");
         getConfig().getString("Permission.LobbySystem.Reload");
+        getConfig().getString("Permission.LobbyItem.Boots");
         HexColor.format(getConfig().getString("Message.NoPermission"));
         HexColor.format(getConfig().getString("Message.NoConsole"));
         HexColor.format(getConfig().getString("Message.PlayerIsNotOnline"));

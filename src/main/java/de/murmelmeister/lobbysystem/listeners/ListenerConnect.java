@@ -6,12 +6,20 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.Objects;
+
 public class ListenerConnect extends Listeners {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void handlePlayerJoin(PlayerJoinEvent event) {
         event.joinMessage(null);
         Player player = event.getPlayer();
+
+        this.lobbyItems.setLobbyItems(player);
+
+        if (player.hasPermission(Objects.requireNonNull(this.messageConfig.getConfig().getString("Permission.LobbyItem.Boots")))) {
+            this.arrayListUtil.getHue().put(player.getUniqueId(), 0.0f);
+        }
 
         // When the spawn does not exist
         try {
