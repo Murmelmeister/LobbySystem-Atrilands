@@ -1,5 +1,6 @@
 package de.murmelmeister.lobbysystem.listeners;
 
+import de.murmelmeister.lobbysystem.utils.scoreboards.TestScoreboard;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,6 +17,8 @@ public class ListenerConnect extends Listeners {
         Player player = event.getPlayer();
 
         this.lobbyItems.setLobbyItems(player);
+
+        // new TestScoreboard(player);
 
         if (player.hasPermission(Objects.requireNonNull(this.messageConfig.getConfig().getString("Permission.LobbyItem.Boots")))) {
             this.arrayListUtil.getHue().put(player.getUniqueId(), 0.0f);
