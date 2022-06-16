@@ -7,6 +7,7 @@ public class TestScoreboard extends ScoreboardBuilder {
 
     public TestScoreboard(Player player, Component displayName) {
         super(player, displayName);
+        update();
     }
 
     @Override
