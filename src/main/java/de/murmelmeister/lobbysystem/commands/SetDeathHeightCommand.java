@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.List;
 
-public class SetDeathHeightCommand extends Commands {
+public final class SetDeathHeightCommand extends Commands {
     public SetDeathHeightCommand(LobbySystem plugin) {
         super(plugin);
     }
