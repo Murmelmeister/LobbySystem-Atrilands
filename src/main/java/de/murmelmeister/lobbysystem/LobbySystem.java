@@ -4,20 +4,23 @@ import de.murmelmeister.lobbysystem.api.EconomyAPI;
 import de.murmelmeister.lobbysystem.commands.CommandManager;
 import de.murmelmeister.lobbysystem.config.MessageConfig;
 import de.murmelmeister.lobbysystem.listeners.Listeners;
-import de.murmelmeister.lobbysystem.utils.ArrayListUtil;
 import de.murmelmeister.lobbysystem.utils.LobbyItems;
 import de.murmelmeister.lobbysystem.utils.LocationUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 
+import java.util.*;
+
 public final class LobbySystem extends JavaPlugin {
     private MessageConfig messageConfig;
-    private Listeners listeners;
-    private ArrayListUtil arrayListUtil;
     private LocationUtil locationUtil;
-    private CommandManager commandManager;
-    private LobbyItems lobbyItems;
     private EconomyAPI economyAPI;
+    private LobbyItems lobbyItems;
+    private Listeners listeners;
+    private CommandManager commandManager;
+
+    private final List<UUID> buildMode = new ArrayList<>();
+    private final Map<UUID, Float> rainbowHue = new HashMap<>();
 
     @Override
     public void onDisable() {
@@ -28,14 +31,13 @@ public final class LobbySystem extends JavaPlugin {
     public void onEnable() {
         final Logger logger = getSLF4JLogger();
         this.messageConfig = new MessageConfig(logger);
-        this.arrayListUtil = new ArrayListUtil();
         this.locationUtil = new LocationUtil();
         this.economyAPI = new EconomyAPI();
         this.lobbyItems = new LobbyItems();
-        this.listeners = new Listeners();
+        this.listeners = new Listeners(this);
         this.commandManager = new CommandManager();
 
-        listeners.registerListeners();
+        Listeners.registers(this);
         commandManager.registerCommands();
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
@@ -46,20 +48,12 @@ public final class LobbySystem extends JavaPlugin {
         return getPlugin(LobbySystem.class);
     }
 
-    public Listeners getListeners() {
-        return listeners;
+    public MessageConfig getMessageConfig() {
+        return messageConfig;
     }
 
-    public void setListeners(Listeners listeners) {
-        this.listeners = listeners;
-    }
-
-    public ArrayListUtil getArrayListUtil() {
-        return arrayListUtil;
-    }
-
-    public void setArrayListUtil(ArrayListUtil arrayListUtil) {
-        this.arrayListUtil = arrayListUtil;
+    public void setMessageConfig(MessageConfig messageConfig) {
+        this.messageConfig = messageConfig;
     }
 
     public LocationUtil getLocationUtil() {
@@ -70,20 +64,12 @@ public final class LobbySystem extends JavaPlugin {
         this.locationUtil = locationUtil;
     }
 
-    public CommandManager getCommandManager() {
-        return commandManager;
+    public EconomyAPI getEconomyAPI() {
+        return economyAPI;
     }
 
-    public void setCommandManager(CommandManager commandManager) {
-        this.commandManager = commandManager;
-    }
-
-    public MessageConfig getMessageConfig() {
-        return messageConfig;
-    }
-
-    public void setMessageConfig(MessageConfig messageConfig) {
-        this.messageConfig = messageConfig;
+    public void setEconomyAPI(EconomyAPI economyAPI) {
+        this.economyAPI = economyAPI;
     }
 
     public LobbyItems getLobbyItems() {
@@ -94,11 +80,27 @@ public final class LobbySystem extends JavaPlugin {
         this.lobbyItems = lobbyItems;
     }
 
-    public EconomyAPI getEconomyAPI() {
-        return economyAPI;
+    public Listeners getListeners() {
+        return listeners;
     }
 
-    public void setEconomyAPI(EconomyAPI economyAPI) {
-        this.economyAPI = economyAPI;
+    public void setListeners(Listeners listeners) {
+        this.listeners = listeners;
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
+    }
+
+    public void setCommandManager(CommandManager commandManager) {
+        this.commandManager = commandManager;
+    }
+
+    public List<UUID> getBuildMode() {
+        return buildMode;
+    }
+
+    public Map<UUID, Float> getRainbowHue() {
+        return rainbowHue;
     }
 }
