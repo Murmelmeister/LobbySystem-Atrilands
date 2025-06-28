@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.List;
 
-public class CommandSetDeathHeight extends Commands {
-    public CommandSetDeathHeight(LobbySystem plugin) {
+public class SetDeathHeightCommand extends Commands {
+    public SetDeathHeightCommand(LobbySystem plugin) {
         super(plugin);
     }
 
