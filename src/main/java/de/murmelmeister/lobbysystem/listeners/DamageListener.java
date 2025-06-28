@@ -14,7 +14,7 @@ public final class DamageListener extends Listeners {
     @EventHandler
     public void handlePlayerFallDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player)
-            event.setCancelled(event.getCause().equals(EntityDamageEvent.DamageCause.FALL));
+            event.setCancelled(true);
     }
 
     @EventHandler
