@@ -2,7 +2,7 @@ package de.murmelmeister.lobbysystem.listeners;
 
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import de.murmelmeister.lobbysystem.LobbySystem;
-import de.murmelmeister.lobbysystem.utils.LocationUtil;
+import de.murmelmeister.lobbysystem.api.Locations;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -75,7 +75,7 @@ public class OtherListener extends Listeners {
 
     @EventHandler
     public void handlePlayerMove(PlayerMoveEvent event) {
-        LocationUtil locationUtil = getLocationUtil();
+        Locations locations = getLocationUtil();
         List<UUID> buildMode = getPlugin().getBuildMode();
         Player player = event.getPlayer();
 
@@ -85,8 +85,8 @@ public class OtherListener extends Listeners {
         }
 
         try {
-            if (player.getLocation().getBlockY() <= locationUtil.getDeathHeight())
-                player.teleport(locationUtil.getLocation("Spawn"));
+            if (player.getLocation().getBlockY() <= locations.getY("DeathHeight"))
+                player.teleport(locations.getLocation("Spawn"));
         } catch (NullPointerException ignored) {
             throw new NullPointerException("LocationUtil is not initialized or 'DeathHeight' is not set in the config.");
         }

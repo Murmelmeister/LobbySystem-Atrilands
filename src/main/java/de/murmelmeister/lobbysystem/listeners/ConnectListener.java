@@ -3,7 +3,7 @@ package de.murmelmeister.lobbysystem.listeners;
 import de.murmelmeister.lobbysystem.LobbySystem;
 import de.murmelmeister.lobbysystem.config.MessageConfig;
 import de.murmelmeister.lobbysystem.utils.LobbyItems;
-import de.murmelmeister.lobbysystem.utils.LocationUtil;
+import de.murmelmeister.lobbysystem.api.Locations;
 import de.murmelmeister.lobbysystem.utils.Messages;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,7 +22,7 @@ public class ConnectListener extends Listeners {
     @EventHandler
     public void handlePlayerJoin(PlayerJoinEvent event) {
         MessageConfig messageConfig = getMessageConfig();
-        LocationUtil locationUtil = getLocationUtil();
+        Locations locations = getLocationUtil();
         LobbyItems lobbyItems = getLobbyItems();
         Map<UUID, Float> rainbowHue = getPlugin().getRainbowHue();
 
@@ -37,12 +37,12 @@ public class ConnectListener extends Listeners {
             rainbowHue.put(player.getUniqueId(), 0.0f);
 
         // When the spawn does not exist
-        if (locationUtil.locationIsExisting("Spawn"))
-            player.teleport(locationUtil.getLocation("Spawn"));
+        if (locations.existsLocation("Spawn"))
+            player.teleport(locations.getLocation("Spawn"));
         else sendMessage(player, messageConfig.getMessage(Messages.MESSAGE_SPAWN_NOT_SET));
 
         // When the death height does not exist
-        if (!locationUtil.heightIsExisting())
+        if (!locations.existsLocation("DeathHeight"))
             sendMessage(player, messageConfig.getMessage(Messages.MESSAGE_DEATH_HEIGHT_NOT_SET));
     }
 

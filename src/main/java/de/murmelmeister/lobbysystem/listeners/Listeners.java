@@ -4,7 +4,7 @@ import de.murmelmeister.lobbysystem.LobbySystem;
 import de.murmelmeister.lobbysystem.api.EconomyAPI;
 import de.murmelmeister.lobbysystem.config.MessageConfig;
 import de.murmelmeister.lobbysystem.utils.LobbyItems;
-import de.murmelmeister.lobbysystem.utils.LocationUtil;
+import de.murmelmeister.lobbysystem.api.Locations;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
@@ -13,14 +13,14 @@ public class Listeners implements Listener {
     private final LobbySystem plugin;
 
     private final MessageConfig messageConfig;
-    private final LocationUtil locationUtil;
+    private final Locations locations;
     private final EconomyAPI economyAPI;
     private final LobbyItems lobbyItems;
 
     public Listeners(LobbySystem plugin) {
         this.plugin = plugin;
         this.messageConfig = plugin.getMessageConfig();
-        this.locationUtil = plugin.getLocationUtil();
+        this.locations = plugin.getLocationUtil();
         this.economyAPI = plugin.getEconomyAPI();
         this.lobbyItems = plugin.getLobbyItems();
     }
@@ -49,8 +49,8 @@ public class Listeners implements Listener {
         return messageConfig;
     }
 
-    public LocationUtil getLocationUtil() {
-        return locationUtil;
+    public Locations getLocationUtil() {
+        return locations;
     }
 
     public EconomyAPI getEconomyAPI() {
