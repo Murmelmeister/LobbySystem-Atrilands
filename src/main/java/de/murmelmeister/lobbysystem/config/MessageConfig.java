@@ -1,7 +1,7 @@
 package de.murmelmeister.lobbysystem.config;
 
+import de.murmelmeister.lobbysystem.LobbySystem;
 import de.murmelmeister.lobbysystem.utils.FileUtil;
-import de.murmelmeister.lobbysystem.utils.LobbyItems;
 import de.murmelmeister.lobbysystem.utils.Messages;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public class MessageConfig {
     }
 
     private void create() {
-        this.file = FileUtil.createFile(logger, "./plugins/" + LobbyItems.class.getSimpleName() + "/", "message.yml");
+        this.file = FileUtil.createFile(logger, "./plugins/" + LobbySystem.class.getSimpleName() + "/", "message.yml");
         this.config = YamlConfiguration.loadConfiguration(file);
     }
 
