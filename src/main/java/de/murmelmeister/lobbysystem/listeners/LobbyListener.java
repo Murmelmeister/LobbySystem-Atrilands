@@ -23,12 +23,12 @@ import java.io.IOException;
 
 public final class LobbyListener extends Listeners {
     private final MiniMessage miniMessage = MiniMessage.miniMessage();
-    private final NamespacedKey test1Key;
+    private final NamespacedKey survival;
     private final NamespacedKey placeholderKey;
 
     public LobbyListener(LobbySystem plugin) {
         super(plugin);
-        this.test1Key = new NamespacedKey(plugin, "test1");
+        this.survival = new NamespacedKey(plugin, "survival");
         this.placeholderKey = new NamespacedKey(plugin, "placeholder");
     }
 
@@ -47,13 +47,13 @@ public final class LobbyListener extends Listeners {
         if (!container.has(lobbyItems.getNavigatorKey(), PersistentDataType.STRING)) return;
         if (!event.getAction().isRightClick()) return;
 
-        Inventory inventory = player.getServer().createInventory(null, 9, miniMessage.deserialize("<red>Navigator"));
+        Inventory inventory = player.getServer().createInventory(null, 9, miniMessage.deserialize("<#aa00aa>Navigator"));
 
         inventory.setItem(0, createItem());
         inventory.setItem(1, createItem());
         inventory.setItem(2, createItem());
         inventory.setItem(3, createItem());
-        inventory.setItem(4, createItemTest1());
+        inventory.setItem(4, createItemSurvival());
         inventory.setItem(5, createItem());
         inventory.setItem(6, createItem());
         inventory.setItem(7, createItem());
@@ -77,7 +77,7 @@ public final class LobbyListener extends Listeners {
         if (itemMeta == null) return;
 
         PersistentDataContainer container = itemMeta.getPersistentDataContainer();
-        if (!container.has(test1Key, PersistentDataType.STRING)) return;
+        if (!container.has(survival, PersistentDataType.STRING)) return;
 
         player.closeInventory();
         ByteArrayOutputStream b = new ByteArrayOutputStream();
@@ -85,12 +85,12 @@ public final class LobbyListener extends Listeners {
 
         try {
             out.writeUTF("Connect");
-            out.writeUTF("Survival-1");
+            out.writeUTF("Survival-1"); // TODO: Configurable?
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        sendMessage(player, "<#999999>Connect to Survival-1...");
+        sendMessage(player, "<#999999>Connect to Survival-1..."); // TODO: Add to MessageConfig
 
         player.sendPluginMessage(getPlugin(), "BungeeCord", b.toByteArray());
     }
@@ -114,13 +114,13 @@ public final class LobbyListener extends Listeners {
         return itemStack;
     }
 
-    private ItemStack createItemTest1() {
+    private ItemStack createItemSurvival() {
         ItemStack itemStack = new ItemStack(Material.GRASS_BLOCK, 1);
         ItemMeta itemMeta = itemStack.getItemMeta();
         PersistentDataContainer container = itemMeta.getPersistentDataContainer();
 
-        container.set(test1Key, PersistentDataType.STRING, "test1");
-        itemMeta.displayName(miniMessage.deserialize("<red>Test1"));
+        container.set(survival, PersistentDataType.STRING, "survival");
+        itemMeta.displayName(miniMessage.deserialize("<#00aa00>Survival"));
 
         itemStack.setItemMeta(itemMeta);
         return itemStack;

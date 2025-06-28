@@ -50,7 +50,7 @@ public final class LobbyItems {
 
         PersistentDataContainer container = itemMeta.getPersistentDataContainer();
         container.set(navigatorKey, PersistentDataType.STRING, "navigator");
-        itemMeta.displayName(miniMessage.deserialize("<dark_aqua>Navigator"));
+        itemMeta.displayName(miniMessage.deserialize("<#6600bb>Navigator"));
 
         itemStack.setItemMeta(itemMeta);
         return itemStack;
@@ -64,7 +64,7 @@ public final class LobbyItems {
         container.set(rainbowBootsKey, PersistentDataType.STRING, "rainbow_boots");
 
         bootsMeta.setColor(bootsColor);
-        bootsMeta.displayName(miniMessage.deserialize("<dark_aqua>Rainbow Boots"));
+        bootsMeta.displayName(miniMessage.deserialize("<rainbow>Rainbow Boots"));
         bootsMeta.setUnbreakable(true);
         bootsMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         boots.setItemMeta(bootsMeta);
