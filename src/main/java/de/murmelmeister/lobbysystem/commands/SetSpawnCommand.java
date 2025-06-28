@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.List;
 
-public final class CommandSetSpawn extends Commands {
-    public CommandSetSpawn(LobbySystem plugin) {
+public final class SetSpawnCommand extends Commands {
+    public SetSpawnCommand(LobbySystem plugin) {
         super(plugin);
     }
 
