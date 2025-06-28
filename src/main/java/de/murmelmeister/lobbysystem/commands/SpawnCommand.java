@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.List;
 
-public final class CommandSpawn extends Commands {
-    public CommandSpawn(LobbySystem plugin) {
+public final class SpawnCommand extends Commands {
+    public SpawnCommand(LobbySystem plugin) {
         super(plugin);
     }
 
@@ -21,7 +21,7 @@ public final class CommandSpawn extends Commands {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         MessageConfig messageConfig = getMessageConfig();
         Locations locations = getLocations();
-        if (!(sender.hasPermission(messageConfig.getMessage(Messages.PERMISSION_SPAWN_GET)))) {
+        if (!sender.hasPermission(messageConfig.getMessage(Messages.PERMISSION_SPAWN_GET))) {
             sendMessage(sender, messageConfig.getMessage(Messages.MESSAGE_NO_PERMISSION));
             return true;
         }
