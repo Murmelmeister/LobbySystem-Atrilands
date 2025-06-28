@@ -3,10 +3,7 @@ package de.murmelmeister.lobbysystem.utils.scoreboards;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
+import org.bukkit.scoreboard.*;
 
 import java.util.Objects;
 
@@ -31,7 +28,7 @@ public abstract class ScoreboardBuilder {
             Objects.requireNonNull(this.scoreboard.getObjective("display")).unregister();
         }
 
-        this.objective = this.scoreboard.registerNewObjective("display", "dummy", displayName);
+        this.objective = this.scoreboard.registerNewObjective("display", Criteria.DUMMY, displayName);
         this.objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         createScoreboard();
