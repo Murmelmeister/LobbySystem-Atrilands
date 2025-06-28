@@ -14,10 +14,7 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerLevelChangeEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.player.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -88,7 +85,7 @@ public final class OtherListener extends Listeners {
             if (player.getLocation().getBlockY() <= locations.getY("DeathHeight"))
                 player.teleport(locations.getLocation("Spawn"));
         } catch (NullPointerException ignored) {
-            throw new NullPointerException("LocationUtil is not initialized or 'DeathHeight' is not set in the config.");
+            throw new NullPointerException("Locations is not initialized or 'DeathHeight' is not set in the config.");
         }
     }
 
@@ -116,5 +113,10 @@ public final class OtherListener extends Listeners {
 
         if (block.getType().equals(Material.FARMLAND) || block.getType().equals(Material.WHEAT))
             event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void handleSwapHand(PlayerSwapHandItemsEvent event) {
+        event.setCancelled(true);
     }
 }
