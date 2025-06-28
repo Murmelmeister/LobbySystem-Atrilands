@@ -1,79 +1,84 @@
 package de.murmelmeister.lobbysystem.commands;
 
-import de.murmelmeister.lobbysystem.utils.HexColor;
+import de.murmelmeister.lobbysystem.LobbySystem;
+import de.murmelmeister.lobbysystem.config.MessageConfig;
+import de.murmelmeister.lobbysystem.utils.Messages;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.UUID;
 
-public class CommandBuild extends Commands {
+public final class CommandBuild extends Commands {
+    public CommandBuild(LobbySystem plugin) {
+        super(plugin);
+    }
+
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
+        MessageConfig messageConfig = getMessageConfig();
+        List<UUID> buildMode = getPlugin().getBuildMode();
 
-        if (!(sender.hasPermission(Objects.requireNonNull(this.messageConfig.getConfig().getString("Permission.Build.Use"))))) {
-            setSendMessage(sender, HexColor.format(this.messageConfig.getConfig().getString("Message.NoPermission")));
+        if (!sender.hasPermission(messageConfig.getMessage(Messages.PERMISSION_BUILD_USE))) {
+            sendMessage(sender, messageConfig.getMessage(Messages.MESSAGE_NO_PERMISSION));
+            return true;
+        }
+
+        if (args.length > 1) {
+            sendMessage(sender, messageConfig.getMessage(Messages.MESSAGE_BUILD_SYNTAX));
             return true;
         }
 
         if (args.length == 0) {
-
             Player player = sender instanceof Player ? (Player) sender : null;
 
             if (player == null) {
-                setSendMessage(sender, HexColor.format(this.messageConfig.getConfig().getString("Message.NoConsole")));
+                sendMessage(sender, messageConfig.getMessage(Messages.MESSAGE_NO_CONSOLE));
                 return true;
             }
 
-            if (this.arrayListUtil.getBuildmode().contains(player.getUniqueId())) {
-                this.arrayListUtil.getBuildmode().remove(player.getUniqueId());
+            if (buildMode.contains(player.getUniqueId())) {
+                buildMode.remove(player.getUniqueId());
                 player.setGameMode(GameMode.ADVENTURE);
-                setSendMessage(player, HexColor.format(this.messageConfig.getConfig().getString("Message.Build.OffBuildmode")));
+                sendMessage(player, messageConfig.getMessage(Messages.MESSAGE_BUILD_USE_DISABLED));
             } else {
-                this.arrayListUtil.getBuildmode().add(player.getUniqueId());
+                buildMode.add(player.getUniqueId());
                 player.setGameMode(GameMode.CREATIVE);
-                setSendMessage(player, HexColor.format(this.messageConfig.getConfig().getString("Message.Build.OnBuildmode")));
+                sendMessage(player, messageConfig.getMessage(Messages.MESSAGE_BUILD_USE_ENABLED));
             }
-
-        } else if (args.length == 1) {
-
-            if (!(sender.hasPermission(Objects.requireNonNull(this.messageConfig.getConfig().getString("Permission.Build.Other"))))) {
-                setSendMessage(sender, HexColor.format(this.messageConfig.getConfig().getString("Message.NoPermission")));
+        } else {
+            if (!(sender.hasPermission(messageConfig.getMessage(Messages.PERMISSION_BUILD_OTHER)))) {
+                sendMessage(sender, messageConfig.getMessage(Messages.MESSAGE_NO_PERMISSION));
                 return true;
             }
 
             Player target = sender.getServer().getPlayer(args[0]);
 
             if (target == null) {
-                setSendMessage(sender, HexColor.format(Objects.requireNonNull(this.messageConfig.getConfig().getString("Message.PlayerIsNotOnline")).replace("[PLAYER]", args[0])));
+                sendMessage(sender, messageConfig.getMessage(Messages.MESSAGE_PLAYER_IS_NOT_ONLINE).replace("[PLAYER]", args[0]));
                 return true;
             }
 
-            if (this.arrayListUtil.getBuildmode().contains(target.getUniqueId())) {
-                this.arrayListUtil.getBuildmode().remove(target.getUniqueId());
+            if (buildMode.contains(target.getUniqueId())) {
+                buildMode.remove(target.getUniqueId());
                 target.setGameMode(GameMode.ADVENTURE);
-                setSendMessage(target, HexColor.format(this.messageConfig.getConfig().getString("Message.Build.OffBuildmode")));
-                setSendMessage(sender, HexColor.format(Objects.requireNonNull(this.messageConfig.getConfig().getString("Message.Build.OffBuildmodeOther")).replace("[PLAYER]", target.getName())));
+                sendMessage(target, messageConfig.getMessage(Messages.MESSAGE_BUILD_USE_DISABLED));
+                sendMessage(sender, messageConfig.getMessage(Messages.MESSAGE_BUILD_OTHER_DISABLED).replace("[PLAYER]", target.getName()));
             } else {
-                this.arrayListUtil.getBuildmode().add(target.getUniqueId());
+                buildMode.add(target.getUniqueId());
                 target.setGameMode(GameMode.CREATIVE);
-                setSendMessage(target, HexColor.format(this.messageConfig.getConfig().getString("Message.Build.OnBuildmode")));
-                setSendMessage(sender, HexColor.format(Objects.requireNonNull(this.messageConfig.getConfig().getString("Message.Build.OnBuildmodeOther")).replace("[PLAYER]", target.getName())));
+                sendMessage(target, messageConfig.getMessage(Messages.MESSAGE_BUILD_USE_ENABLED));
+                sendMessage(sender, messageConfig.getMessage(Messages.MESSAGE_BUILD_OTHER_ENABLED).replace("[PLAYER]", target.getName()));
             }
-
-        } else {
-            setSendMessage(sender, HexColor.format(this.messageConfig.getConfig().getString("Message.Build.Syntax")));
         }
-
         return true;
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+    public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String @NotNull [] args) {
         return getTabComplete(sender, args);
     }
 }
