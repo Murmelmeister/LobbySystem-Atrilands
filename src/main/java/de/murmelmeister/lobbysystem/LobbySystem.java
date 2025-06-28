@@ -8,6 +8,7 @@ import de.murmelmeister.lobbysystem.utils.LobbyItems;
 import de.murmelmeister.lobbysystem.api.Locations;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 import org.slf4j.Logger;
 
 import java.util.*;
@@ -22,8 +23,12 @@ public final class LobbySystem extends JavaPlugin {
     private final List<UUID> buildMode = new ArrayList<>();
     private final Map<UUID, Float> rainbowHue = new HashMap<>();
 
+    private BukkitTask rainbowLoopTask;
+
     @Override
     public void onDisable() {
+        if (rainbowLoopTask != null && !rainbowLoopTask.isCancelled())
+            rainbowLoopTask.cancel();
         getServer().getMessenger().unregisterOutgoingPluginChannel(this);
     }
 
@@ -34,14 +39,14 @@ public final class LobbySystem extends JavaPlugin {
         this.messageConfig = new MessageConfig(logger);
         this.locations = new Locations(logger, server);
         this.economy = new Economy(logger);
-        this.lobbyItems = new LobbyItems();
+        this.lobbyItems = new LobbyItems(this);
         this.listeners = new Listeners(this);
 
         Listeners.registers(this);
         Commands.registers(this);
 
         server.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        lobbyItems.rainbowLoop().runTaskTimer(this, 1, 1);
+        rainbowLoopTask = lobbyItems.rainbowLoop().runTaskTimer(this, 1, 1); // Maybe in async task?
     }
 
     public static LobbySystem getInstance() {

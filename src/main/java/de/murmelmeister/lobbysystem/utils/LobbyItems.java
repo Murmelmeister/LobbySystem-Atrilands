@@ -1,9 +1,10 @@
 package de.murmelmeister.lobbysystem.utils;
 
 import de.murmelmeister.lobbysystem.LobbySystem;
-import org.bukkit.Bukkit;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -12,14 +13,23 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.awt.*;
+import java.util.Map;
+import java.util.UUID;
 
 public class LobbyItems {
-    private final ArrayListUtil arrayListUtil = LobbySystem.getInstance().getArrayListUtil();
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
+    private final Server server;
+    private final Map<UUID, Float> rainbowHue;
+
+    public LobbyItems(LobbySystem plugin) {
+        this.server = plugin.getServer();
+        this.rainbowHue = plugin.getRainbowHue();
+    }
 
     public void setLobbyItems(Player player) {
         player.setGameMode(GameMode.ADVENTURE);
         player.getInventory().clear();
-        player.getInventory().setArmorContents(null);
+        player.getInventory().setArmorContents(new ItemStack[4]);
         player.setHealth(20.0D);
         player.setFoodLevel(20);
 
@@ -30,7 +40,7 @@ public class LobbyItems {
         ItemStack itemStack = new ItemStack(Material.COMPASS, 1);
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        itemMeta.setDisplayName("§3Navigator");
+        itemMeta.displayName(miniMessage.deserialize("<dark_aqua>Navigator"));
 
         itemStack.setItemMeta(itemMeta);
         return itemStack;
@@ -41,7 +51,7 @@ public class LobbyItems {
         org.bukkit.Color bootsColor = org.bukkit.Color.fromBGR(getRGB(hue).getBlue(), getRGB(hue).getGreen(), getRGB(hue).getRed());
         LeatherArmorMeta bootsMeta = (LeatherArmorMeta) boots.getItemMeta();
         bootsMeta.setColor(bootsColor);
-        bootsMeta.setDisplayName("§3Rainbow Boots");
+        bootsMeta.displayName(miniMessage.deserialize("<dark_aqua>Rainbow Boots"));
         bootsMeta.setUnbreakable(true);
         bootsMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         boots.setItemMeta(bootsMeta);
@@ -52,12 +62,12 @@ public class LobbyItems {
         return new BukkitRunnable() {
             @Override
             public void run() {
-                arrayListUtil.getHue().forEach((uuid, h) -> {
-                    Player player = Bukkit.getPlayer(uuid);
+                rainbowHue.forEach((uuid, h) -> {
+                    Player player = server.getPlayer(uuid);
                     if (player != null && player.isOnline()) {
                         h = handleColor(h);
                         setRainbowArmor(player, h);
-                        arrayListUtil.getHue().put(uuid, h);
+                        rainbowHue.put(uuid, h);
                     }
                 });
             }
