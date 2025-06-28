@@ -20,7 +20,7 @@ public class Listeners implements Listener {
     public Listeners(LobbySystem plugin) {
         this.plugin = plugin;
         this.messageConfig = plugin.getMessageConfig();
-        this.locations = plugin.getLocationUtil();
+        this.locations = plugin.getLocations();
         this.economyAPI = plugin.getEconomyAPI();
         this.lobbyItems = plugin.getLobbyItems();
     }
