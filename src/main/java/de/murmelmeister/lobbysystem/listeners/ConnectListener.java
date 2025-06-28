@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class ListenerConnect extends Listeners {
-    public ListenerConnect(LobbySystem plugin) {
+public class ConnectListener extends Listeners {
+    public ConnectListener(LobbySystem plugin) {
         super(plugin);
     }
 
