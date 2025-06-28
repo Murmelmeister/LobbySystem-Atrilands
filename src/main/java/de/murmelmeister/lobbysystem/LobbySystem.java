@@ -8,13 +8,14 @@ import de.murmelmeister.lobbysystem.utils.ArrayListUtil;
 import de.murmelmeister.lobbysystem.utils.LobbyItems;
 import de.murmelmeister.lobbysystem.utils.LocationUtil;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.slf4j.Logger;
 
 public final class LobbySystem extends JavaPlugin {
+    private MessageConfig messageConfig;
     private Listeners listeners;
     private ArrayListUtil arrayListUtil;
     private LocationUtil locationUtil;
     private CommandManager commandManager;
-    private MessageConfig messageConfig;
     private LobbyItems lobbyItems;
     private EconomyAPI economyAPI;
 
@@ -25,9 +26,10 @@ public final class LobbySystem extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        final Logger logger = getSLF4JLogger();
+        this.messageConfig = new MessageConfig(logger);
         this.arrayListUtil = new ArrayListUtil();
         this.locationUtil = new LocationUtil();
-        this.messageConfig = new MessageConfig();
         this.economyAPI = new EconomyAPI();
         this.lobbyItems = new LobbyItems();
         this.listeners = new Listeners();
@@ -37,7 +39,7 @@ public final class LobbySystem extends JavaPlugin {
         commandManager.registerCommands();
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        getLobbyItems().rainbowLoop().runTaskTimer(this, 1, 1);
+        lobbyItems.rainbowLoop().runTaskTimer(this, 1, 1);
     }
 
     public static LobbySystem getInstance() {
