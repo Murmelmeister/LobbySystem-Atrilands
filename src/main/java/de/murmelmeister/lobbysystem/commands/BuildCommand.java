@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-public final class CommandBuild extends Commands {
-    public CommandBuild(LobbySystem plugin) {
+public final class BuildCommand extends Commands {
+    public BuildCommand(LobbySystem plugin) {
         super(plugin);
     }
 
