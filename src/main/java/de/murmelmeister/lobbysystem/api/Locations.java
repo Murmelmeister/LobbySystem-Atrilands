@@ -1,6 +1,7 @@
-package de.murmelmeister.lobbysystem.utils;
+package de.murmelmeister.lobbysystem.api;
 
 import de.murmelmeister.lobbysystem.LobbySystem;
+import de.murmelmeister.lobbysystem.utils.FileUtil;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,13 +11,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-public class LocationUtil {
+public class Locations {
     private final Logger logger;
     private final Server server;
     private File file;
     private YamlConfiguration config;
 
-    public LocationUtil(Logger logger, Server server) {
+    public Locations(Logger logger, Server server) {
         this.logger = logger;
         this.server = server;
         create();
