@@ -5,7 +5,8 @@ import de.murmelmeister.lobbysystem.commands.CommandManager;
 import de.murmelmeister.lobbysystem.config.MessageConfig;
 import de.murmelmeister.lobbysystem.listeners.Listeners;
 import de.murmelmeister.lobbysystem.utils.LobbyItems;
-import de.murmelmeister.lobbysystem.utils.LocationUtil;
+import de.murmelmeister.lobbysystem.api.Locations;
+import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 
@@ -13,7 +14,7 @@ import java.util.*;
 
 public final class LobbySystem extends JavaPlugin {
     private MessageConfig messageConfig;
-    private LocationUtil locationUtil;
+    private Locations locations;
     private EconomyAPI economyAPI;
     private LobbyItems lobbyItems;
     private Listeners listeners;
@@ -30,8 +31,9 @@ public final class LobbySystem extends JavaPlugin {
     @Override
     public void onEnable() {
         final Logger logger = getSLF4JLogger();
+        final Server server = getServer();
         this.messageConfig = new MessageConfig(logger);
-        this.locationUtil = new LocationUtil();
+        this.locations = new Locations(logger, server);
         this.economyAPI = new EconomyAPI();
         this.lobbyItems = new LobbyItems();
         this.listeners = new Listeners(this);
@@ -40,7 +42,7 @@ public final class LobbySystem extends JavaPlugin {
         Listeners.registers(this);
         commandManager.registerCommands();
 
-        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        server.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         lobbyItems.rainbowLoop().runTaskTimer(this, 1, 1);
     }
 
@@ -56,12 +58,12 @@ public final class LobbySystem extends JavaPlugin {
         this.messageConfig = messageConfig;
     }
 
-    public LocationUtil getLocationUtil() {
-        return locationUtil;
+    public Locations getLocationUtil() {
+        return locations;
     }
 
-    public void setLocationUtil(LocationUtil locationUtil) {
-        this.locationUtil = locationUtil;
+    public void setLocationUtil(Locations locations) {
+        this.locations = locations;
     }
 
     public EconomyAPI getEconomyAPI() {
