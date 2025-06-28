@@ -1,35 +1,63 @@
 package de.murmelmeister.lobbysystem.listeners;
 
 import de.murmelmeister.lobbysystem.LobbySystem;
+import de.murmelmeister.lobbysystem.api.EconomyAPI;
 import de.murmelmeister.lobbysystem.config.MessageConfig;
-import de.murmelmeister.lobbysystem.utils.ArrayListUtil;
-import de.murmelmeister.lobbysystem.utils.HexColor;
 import de.murmelmeister.lobbysystem.utils.LobbyItems;
 import de.murmelmeister.lobbysystem.utils.LocationUtil;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 
 public class Listeners implements Listener {
+    private final LobbySystem plugin;
 
-    protected LobbySystem instance = LobbySystem.getInstance();
+    private final MessageConfig messageConfig;
+    private final LocationUtil locationUtil;
+    private final EconomyAPI economyAPI;
+    private final LobbyItems lobbyItems;
 
-    protected ArrayListUtil arrayListUtil = this.instance.getArrayListUtil();
-    protected LocationUtil locationUtil = this.instance.getLocationUtil();
-    protected LobbyItems lobbyItems = this.instance.getLobbyItems();
-    protected MessageConfig messageConfig = this.instance.getMessageConfig();
-
-    public void registerListeners() {
-        setListener(new ListenerOthers());
-        setListener(new ListenerDamage());
-        setListener(new ListenerConnect());
+    public Listeners(LobbySystem plugin) {
+        this.plugin = plugin;
+        this.messageConfig = plugin.getMessageConfig();
+        this.locationUtil = plugin.getLocationUtil();
+        this.economyAPI = plugin.getEconomyAPI();
+        this.lobbyItems = plugin.getLobbyItems();
     }
 
-    private void setListener(Listener listener) {
-        this.instance.getServer().getPluginManager().registerEvents(listener, this.instance);
+    public static void registers(LobbySystem plugin) {
+        addListener(plugin, new OtherListener(plugin));
+        addListener(plugin, new DamageListener(plugin));
+        addListener(plugin, new ConnectListener(plugin));
+        addListener(plugin, new LobbyListener(plugin));
+        addListener(plugin, new EconomyListener(plugin));
     }
 
-    protected void setSendMessage(CommandSender sender, String message) {
-        sender.sendMessage(this.instance.getMessageConfig().getConfig().getString("Prefix") + HexColor.format(message));
+    private static void addListener(LobbySystem plugin, Listener listener) {
+        plugin.getServer().getPluginManager().registerEvents(listener, plugin);
     }
 
+    public void sendMessage(CommandSender sender, String message) {
+        sender.sendMessage(MiniMessage.miniMessage().deserialize(messageConfig.getPrefix() + message));
+    }
+
+    public LobbySystem getPlugin() {
+        return plugin;
+    }
+
+    public MessageConfig getMessageConfig() {
+        return messageConfig;
+    }
+
+    public LocationUtil getLocationUtil() {
+        return locationUtil;
+    }
+
+    public EconomyAPI getEconomyAPI() {
+        return economyAPI;
+    }
+
+    public LobbyItems getLobbyItems() {
+        return lobbyItems;
+    }
 }
