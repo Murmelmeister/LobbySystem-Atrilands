@@ -11,7 +11,7 @@ public enum Messages {
     PERMISSION_SPAWN_OTHER("Permission.Spawn.Other", "lobbysystem.command.spawn.other"),
     PERMISSION_LOBBY_SYSTEM_USE("Permission.LobbySystem.Use", "lobbysystem.command.lobbysystem.use"),
     PERMISSION_LOBBY_SYSTEM_RELOAD("Permission.LobbySystem.Reload", "lobbysystem.command.lobbysystem.reload"),
-    PERMISSION_LOBBY_ITEMS_USE("Permission.LobbyItems.Boots", "lobbysystem.lobbyitem.boots"),
+    PERMISSION_LOBBY_ITEMS_BOOTS("Permission.LobbyItems.Boots", "lobbysystem.lobbyitem.boots"),
     MESSAGE_NO_PERMISSION("Message.NoPermission", "<#ff0000>Du hast keine Berechtigung, diesen Befehl zu benutzen."),
     MESSAGE_NO_CONSOLE("Message.NoConsole", "<#ff0000>Dieser Befehl kann nicht von der Konsole ausgeführt werden."),
     MESSAGE_PLAYER_IS_NOT_ONLINE("Message.PlayerIsNotOnline", "<#ff0000>Der Spieler <#ffb500>[PLAYER]</#ffb500> ist nicht online."),
