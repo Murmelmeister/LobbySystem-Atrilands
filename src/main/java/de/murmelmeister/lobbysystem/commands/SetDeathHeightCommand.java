@@ -21,7 +21,7 @@ public class SetDeathHeightCommand extends Commands {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         MessageConfig messageConfig = getMessageConfig();
         Locations locations = getLocations();
-        if (!(sender.hasPermission(messageConfig.getMessage(Messages.PERMISSION_DEATH_HEIGHT_SET)))) {
+        if (!sender.hasPermission(messageConfig.getMessage(Messages.PERMISSION_DEATH_HEIGHT_SET))) {
             sendMessage(sender, messageConfig.getMessage(Messages.MESSAGE_NO_PERMISSION));
             return true;
         }
