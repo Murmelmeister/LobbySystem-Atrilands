@@ -1,60 +1,47 @@
 package de.murmelmeister.lobbysystem;
 
+import de.murmelmeister.lobbysystem.api.EconomyAPI;
 import de.murmelmeister.lobbysystem.commands.CommandManager;
 import de.murmelmeister.lobbysystem.config.MessageConfig;
 import de.murmelmeister.lobbysystem.listeners.Listeners;
 import de.murmelmeister.lobbysystem.utils.ArrayListUtil;
 import de.murmelmeister.lobbysystem.utils.LobbyItems;
 import de.murmelmeister.lobbysystem.utils.LocationUtil;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Objects;
-
-public final class LobbySystem extends Main {
-
-    private static LobbySystem instance;
-
+public final class LobbySystem extends JavaPlugin {
     private Listeners listeners;
     private ArrayListUtil arrayListUtil;
     private LocationUtil locationUtil;
     private CommandManager commandManager;
     private MessageConfig messageConfig;
     private LobbyItems lobbyItems;
+    private EconomyAPI economyAPI;
 
     @Override
     public void onDisable() {
-        this.handleDisableMessage();
+        getServer().getMessenger().unregisterOutgoingPluginChannel(this);
     }
 
     @Override
     public void onEnable() {
-        init();
+        this.arrayListUtil = new ArrayListUtil();
+        this.locationUtil = new LocationUtil();
+        this.messageConfig = new MessageConfig();
+        this.economyAPI = new EconomyAPI();
+        this.lobbyItems = new LobbyItems();
+        this.listeners = new Listeners();
+        this.commandManager = new CommandManager();
+
+        listeners.registerListeners();
+        commandManager.registerCommands();
+
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         getLobbyItems().rainbowLoop().runTaskTimer(this, 1, 1);
-        this.handleEnableMessage();
-    }
-
-    @Override
-    public void onLoad() {
-        setInstance(this);
-    }
-
-    @Override
-    public void init() {
-        setArrayListUtil(new ArrayListUtil());
-        setLocationUtil(new LocationUtil());
-        setMessageConfig(new MessageConfig());
-        setLobbyItems(new LobbyItems());
-        setListeners(new Listeners());
-        setCommandManager(new CommandManager());
-        getListeners().registerListeners();
-        getCommandManager().registerCommands();
     }
 
     public static LobbySystem getInstance() {
-        return instance;
-    }
-
-    public static void setInstance(LobbySystem instance) {
-        LobbySystem.instance = instance;
+        return getPlugin(LobbySystem.class);
     }
 
     public Listeners getListeners() {
@@ -103,5 +90,13 @@ public final class LobbySystem extends Main {
 
     public void setLobbyItems(LobbyItems lobbyItems) {
         this.lobbyItems = lobbyItems;
+    }
+
+    public EconomyAPI getEconomyAPI() {
+        return economyAPI;
+    }
+
+    public void setEconomyAPI(EconomyAPI economyAPI) {
+        this.economyAPI = economyAPI;
     }
 }
