@@ -1,7 +1,7 @@
 name: LobbySystem
 version: '${project.version}'
 main: de.murmelmeister.lobbysystem.LobbySystem
-api-version: 1.18
+api-version: 1.21
 authors: [ Murmelmeister ]
 description: Is a LobbySystem plugin.
 website: https://www.youtube.com/Murmelmeister
@@ -9,18 +9,20 @@ website: https://www.youtube.com/Murmelmeister
 commands:
   build:
     usage: /<command> [player]
-    description: Setze dich in den Buildmode.
+    description: Set a player in/or out of build mode.
   deathheight:
     usage: /<command>
-    description: Zeigt dir die todes Höhe an.
-  lobbysystem:
-    usage: /<command> [reload]
+    description: Shows the current death height.
+  lobbysystemreload:
+    usage: /<command>
+    description: Reloads the LobbySystem plugin.
+    alias: [ lsreload, lsr, lobbyreload ]
   setdeathheight:
     usage: /<command>
-    description: Setzt die todes Höhe.
+    description: Set the death height.
   setspawn:
     usage: /<command>
-    description: Setzt den Spawn.
+    description: Set the spawn location.
   spawn:
-    usage: /<command> [player]
-    description: Teleportiert dich zum Spawn.
+    usage: /<command>
+    description: Teleport a player to the spawn location.

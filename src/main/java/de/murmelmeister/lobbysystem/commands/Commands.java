@@ -69,12 +69,12 @@ public abstract class Commands implements TabExecutor {
     }
 
     public static void registers(LobbySystem plugin) {
-        addCommand(plugin, "build", new CommandBuild(plugin));
-        addCommand(plugin, "lobbysystem", new CommandLobbySystem(plugin));
-        addCommand(plugin, "deathheight", new CommandDeathHeight(plugin));
-        addCommand(plugin, "setdeathheight", new CommandSetDeathHeight(plugin));
-        addCommand(plugin, "setspawn", new CommandSetSpawn(plugin));
-        addCommand(plugin, "spawn", new CommandSpawn(plugin));
+        addCommand(plugin, "build", new BuildCommand(plugin));
+        addCommand(plugin, "lobbysystemreload", new LobbySystemReloadCommand(plugin));
+        addCommand(plugin, "deathheight", new DeathHeightCommand(plugin));
+        addCommand(plugin, "setdeathheight", new SetDeathHeightCommand(plugin));
+        addCommand(plugin, "setspawn", new SetSpawnCommand(plugin));
+        addCommand(plugin, "spawn", new SpawnCommand(plugin));
     }
 
     private static void addCommand(LobbySystem plugin, String commandName, TabExecutor executor) {
