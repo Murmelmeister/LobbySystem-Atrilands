@@ -58,11 +58,11 @@ public final class LobbySystem extends JavaPlugin {
         this.messageConfig = messageConfig;
     }
 
-    public Locations getLocationUtil() {
+    public Locations getLocations() {
         return locations;
     }
 
-    public void setLocationUtil(Locations locations) {
+    public void setLocations(Locations locations) {
         this.locations = locations;
     }
 
