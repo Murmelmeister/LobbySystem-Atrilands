@@ -1,7 +1,7 @@
 package de.murmelmeister.lobbysystem;
 
 import de.murmelmeister.lobbysystem.api.EconomyAPI;
-import de.murmelmeister.lobbysystem.commands.CommandManager;
+import de.murmelmeister.lobbysystem.commands.Commands;
 import de.murmelmeister.lobbysystem.config.MessageConfig;
 import de.murmelmeister.lobbysystem.listeners.Listeners;
 import de.murmelmeister.lobbysystem.utils.LobbyItems;
@@ -18,7 +18,6 @@ public final class LobbySystem extends JavaPlugin {
     private EconomyAPI economyAPI;
     private LobbyItems lobbyItems;
     private Listeners listeners;
-    private CommandManager commandManager;
 
     private final List<UUID> buildMode = new ArrayList<>();
     private final Map<UUID, Float> rainbowHue = new HashMap<>();
@@ -37,10 +36,9 @@ public final class LobbySystem extends JavaPlugin {
         this.economyAPI = new EconomyAPI();
         this.lobbyItems = new LobbyItems();
         this.listeners = new Listeners(this);
-        this.commandManager = new CommandManager();
 
         Listeners.registers(this);
-        commandManager.registerCommands();
+        Commands.registers(this);
 
         server.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         lobbyItems.rainbowLoop().runTaskTimer(this, 1, 1);
@@ -88,14 +86,6 @@ public final class LobbySystem extends JavaPlugin {
 
     public void setListeners(Listeners listeners) {
         this.listeners = listeners;
-    }
-
-    public CommandManager getCommandManager() {
-        return commandManager;
-    }
-
-    public void setCommandManager(CommandManager commandManager) {
-        this.commandManager = commandManager;
     }
 
     public List<UUID> getBuildMode() {
