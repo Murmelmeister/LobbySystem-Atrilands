@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-public class DamageListener extends Listeners {
+public final class DamageListener extends Listeners {
     public DamageListener(LobbySystem plugin) {
         super(plugin);
     }

@@ -15,7 +15,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class LobbyListener extends Listeners {
+public final class LobbyListener extends Listeners {
     public LobbyListener(LobbySystem plugin) {
         super(plugin);
     }

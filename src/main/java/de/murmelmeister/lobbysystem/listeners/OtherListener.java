@@ -22,7 +22,7 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import java.util.List;
 import java.util.UUID;
 
-public class OtherListener extends Listeners {
+public final class OtherListener extends Listeners {
     public OtherListener(LobbySystem plugin) {
         super(plugin);
     }

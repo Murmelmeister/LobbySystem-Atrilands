@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.UUID;
 
-public class EconomyListener extends Listeners {
+public final class EconomyListener extends Listeners {
     public EconomyListener(LobbySystem plugin) {
         super(plugin);
     }
