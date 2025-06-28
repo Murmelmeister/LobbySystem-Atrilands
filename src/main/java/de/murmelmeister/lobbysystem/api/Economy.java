@@ -37,7 +37,7 @@ public class Economy {
     }
 
     public double getDefaultMoney() {
-        return 0.0D;
+        return 0.0D; // TODO: Make this configurable
     }
 
     public boolean hasAccount(UUID uuid) {
