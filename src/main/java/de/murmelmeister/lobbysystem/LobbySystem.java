@@ -1,6 +1,6 @@
 package de.murmelmeister.lobbysystem;
 
-import de.murmelmeister.lobbysystem.api.EconomyAPI;
+import de.murmelmeister.lobbysystem.api.Economy;
 import de.murmelmeister.lobbysystem.commands.Commands;
 import de.murmelmeister.lobbysystem.config.MessageConfig;
 import de.murmelmeister.lobbysystem.listeners.Listeners;
@@ -15,7 +15,7 @@ import java.util.*;
 public final class LobbySystem extends JavaPlugin {
     private MessageConfig messageConfig;
     private Locations locations;
-    private EconomyAPI economyAPI;
+    private Economy economy;
     private LobbyItems lobbyItems;
     private Listeners listeners;
 
@@ -33,7 +33,7 @@ public final class LobbySystem extends JavaPlugin {
         final Server server = getServer();
         this.messageConfig = new MessageConfig(logger);
         this.locations = new Locations(logger, server);
-        this.economyAPI = new EconomyAPI();
+        this.economy = new Economy(logger);
         this.lobbyItems = new LobbyItems();
         this.listeners = new Listeners(this);
 
@@ -64,12 +64,12 @@ public final class LobbySystem extends JavaPlugin {
         this.locations = locations;
     }
 
-    public EconomyAPI getEconomyAPI() {
-        return economyAPI;
+    public Economy getEconomy() {
+        return economy;
     }
 
-    public void setEconomyAPI(EconomyAPI economyAPI) {
-        this.economyAPI = economyAPI;
+    public void setEconomy(Economy economy) {
+        this.economy = economy;
     }
 
     public LobbyItems getLobbyItems() {

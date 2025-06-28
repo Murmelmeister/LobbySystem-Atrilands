@@ -1,7 +1,7 @@
 package de.murmelmeister.lobbysystem.listeners;
 
 import de.murmelmeister.lobbysystem.LobbySystem;
-import de.murmelmeister.lobbysystem.api.EconomyAPI;
+import de.murmelmeister.lobbysystem.api.Economy;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -14,10 +14,9 @@ public final class EconomyListener extends Listeners {
 
     @EventHandler
     public void handlePlayerJoin(PlayerJoinEvent event) {
-        EconomyAPI economyAPI = getEconomyAPI();
+        Economy economy = getEconomy();
         UUID playerId = event.getPlayer().getUniqueId();
-        if (!(economyAPI.hasAccount(playerId)))
-            economyAPI.createAccount(playerId);
+        if (!economy.hasAccount(playerId))
+            economy.createAccount(playerId);
     }
-
 }

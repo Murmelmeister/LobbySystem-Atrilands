@@ -1,7 +1,7 @@
 package de.murmelmeister.lobbysystem.listeners;
 
 import de.murmelmeister.lobbysystem.LobbySystem;
-import de.murmelmeister.lobbysystem.api.EconomyAPI;
+import de.murmelmeister.lobbysystem.api.Economy;
 import de.murmelmeister.lobbysystem.config.MessageConfig;
 import de.murmelmeister.lobbysystem.utils.LobbyItems;
 import de.murmelmeister.lobbysystem.api.Locations;
@@ -14,14 +14,14 @@ public class Listeners implements Listener {
 
     private final MessageConfig messageConfig;
     private final Locations locations;
-    private final EconomyAPI economyAPI;
+    private final Economy economy;
     private final LobbyItems lobbyItems;
 
     public Listeners(LobbySystem plugin) {
         this.plugin = plugin;
         this.messageConfig = plugin.getMessageConfig();
         this.locations = plugin.getLocations();
-        this.economyAPI = plugin.getEconomyAPI();
+        this.economy = plugin.getEconomy();
         this.lobbyItems = plugin.getLobbyItems();
     }
 
@@ -53,8 +53,8 @@ public class Listeners implements Listener {
         return locations;
     }
 
-    public EconomyAPI getEconomyAPI() {
-        return economyAPI;
+    public Economy getEconomy() {
+        return economy;
     }
 
     public LobbyItems getLobbyItems() {

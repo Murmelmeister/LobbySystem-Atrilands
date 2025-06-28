@@ -1,7 +1,7 @@
 package de.murmelmeister.lobbysystem.commands;
 
 import de.murmelmeister.lobbysystem.LobbySystem;
-import de.murmelmeister.lobbysystem.api.EconomyAPI;
+import de.murmelmeister.lobbysystem.api.Economy;
 import de.murmelmeister.lobbysystem.config.MessageConfig;
 import de.murmelmeister.lobbysystem.api.Locations;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -20,13 +20,13 @@ public abstract class Commands implements TabExecutor {
 
     private final MessageConfig messageConfig;
     private final Locations locations;
-    private final EconomyAPI economyAPI;
+    private final Economy economy;
 
     public Commands(LobbySystem plugin) {
         this.plugin = plugin;
         this.locations = plugin.getLocations();
         this.messageConfig = plugin.getMessageConfig();
-        this.economyAPI = plugin.getEconomyAPI();
+        this.economy = plugin.getEconomy();
     }
 
     public void sendMessage(CommandSender sender, String message) {
@@ -64,8 +64,8 @@ public abstract class Commands implements TabExecutor {
         return locations;
     }
 
-    public EconomyAPI getEconomyAPI() {
-        return economyAPI;
+    public Economy getEconomy() {
+        return economy;
     }
 
     public static void registers(LobbySystem plugin) {

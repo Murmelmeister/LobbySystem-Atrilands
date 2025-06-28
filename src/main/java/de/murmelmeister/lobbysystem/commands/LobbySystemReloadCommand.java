@@ -1,7 +1,7 @@
 package de.murmelmeister.lobbysystem.commands;
 
 import de.murmelmeister.lobbysystem.LobbySystem;
-import de.murmelmeister.lobbysystem.api.EconomyAPI;
+import de.murmelmeister.lobbysystem.api.Economy;
 import de.murmelmeister.lobbysystem.api.Locations;
 import de.murmelmeister.lobbysystem.config.MessageConfig;
 import de.murmelmeister.lobbysystem.utils.Messages;
@@ -21,7 +21,7 @@ public final class LobbySystemReloadCommand extends Commands {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         MessageConfig messageConfig = getMessageConfig();
         Locations locations = getLocations();
-        EconomyAPI economyAPI = getEconomyAPI();
+        Economy economy = getEconomy();
         if (!sender.hasPermission(messageConfig.getMessage(Messages.PERMISSION_LOBBY_SYSTEM_RELOAD))) {
             sendMessage(sender, messageConfig.getMessage(Messages.MESSAGE_NO_PERMISSION));
             return true;
@@ -29,7 +29,7 @@ public final class LobbySystemReloadCommand extends Commands {
 
         messageConfig.reload();
         locations.reload();
-        economyAPI.reload();
+        economy.reload();
         sendMessage(sender, messageConfig.getMessage(Messages.MESSAGE_LOBBY_SYSTEM_RELOAD));
 
         return true;
