@@ -46,7 +46,7 @@ public final class LobbySystem extends JavaPlugin {
         Commands.registers(this);
 
         server.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        rainbowLoopTask = lobbyItems.rainbowLoop().runTaskTimer(this, 1, 1); // Maybe in async task?
+        rainbowLoopTask = lobbyItems.rainbowLoop().runTaskTimerAsynchronously(this, 1, 1);
     }
 
     public static LobbySystem getInstance() {
