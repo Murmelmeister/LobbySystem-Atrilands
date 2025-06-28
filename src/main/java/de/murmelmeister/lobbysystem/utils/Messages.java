@@ -24,8 +24,10 @@ public enum Messages {
     MESSAGE_BUILD_SYNTAX("Message.Build.Syntax", "<#ff0000>Syntax: /build [player]"),
     MESSAGE_DEATH_HEIGHT_GET("Message.DeathHeight.Get", "<#999999>Die Todeshöhe ist auf <#ffb500>[HEIGHT]</#ffb500> gesetzt."),
     MESSAGE_DEATH_HEIGHT_SET("Message.DeathHeight.Set", "<#999999>Die Todeshöhe wurde auf <#ffb500>[HEIGHT]</#ffb500> gesetzt."),
+    MESSAGE_DEATH_HEIGHT_NOT_SET("Message.DeathHeight.NotSet", "<#ff0000>Die Todeshöhe ist nicht gesetzt."),
     MESSAGE_SPAWN_SET("Message.Spawn.Set", "<#999999>Der Spawn wurde auf die aktuelle Position gesetzt."),
     MESSAGE_SPAWN_GET("Message.Spawn.Get", "<#999999>Du hast dich zum <#00ff00>Spawn</#00ff00> teleportiert."),
+    MESSAGE_SPAWN_NOT_SET("Message.Spawn.NotSet", "<#ff0000>Der Spawn ist nicht gesetzt."),
     ;
     public static final Messages[] VALUES = values();
 
